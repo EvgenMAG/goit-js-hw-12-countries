@@ -24,7 +24,6 @@ function findCountry(e) {
 }
 
 function handelCleaner(e) {
-  console.log(e.target.value);
   if (e.target.value !== '') {
     cleaner.onCleanInput(e);
   }
