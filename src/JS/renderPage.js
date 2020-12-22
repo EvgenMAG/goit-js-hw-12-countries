@@ -14,10 +14,12 @@ function checkFetchResponse(result) {
     return;
   }
   if (result.length > 1) {
+    cleaner.cleanSearchCountries();
     renderCountriesPage(result);
     return;
   }
   if (result.length === 1) {
+    cleaner.cleanSearchCountry();
     renderCountryPage(result);
     return;
   }

@@ -19,8 +19,7 @@ function findCountry(e) {
     cleaner.onCleanInput(e);
     return;
   }
-  cleaner.cleanSearchCountry();
-  cleaner.cleanSearchCountries();
+
   fetchQuery(inputValue).then(checkFetchResponse);
 }
 
