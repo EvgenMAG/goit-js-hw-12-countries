@@ -12,7 +12,7 @@ function fetchQuery(searchQuery) {
     .catch(error => {
       errorsNotifications('Nothing has been found. Try again!');
       cleaner.cleanSearchCountry();
-      leaner.cleanSearchCountries();
+      cleaner.cleanSearchCountries();
       return error;
     });
 }

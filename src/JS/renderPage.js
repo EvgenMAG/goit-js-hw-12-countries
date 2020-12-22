@@ -1,21 +1,19 @@
 import errorsNotifications from './notification.js';
-
 import templateList from '../templates/list.hbs';
-
 import countryInfo from '../templates/countriesDescription.hbs';
-
 import refs from './refs';
-
 import cleaner from './cleanInput';
 
 function checkFetchResponse(result) {
   if (result.length > 10) {
+    cleaner.cleanSearchCountries();
+    cleaner.cleanSearchCountry();
     errorsNotifications(
       'Too manu matches found! Please enter more specific query!',
     );
     return;
   }
-  if (result.length > 2) {
+  if (result.length > 1) {
     renderCountriesPage(result);
     return;
   }

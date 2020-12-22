@@ -74,7 +74,13 @@ img {
 ul {
   list-style: square;
 }
-li {
+.countriesList {
   font-size: 25px;
   padding-left: 15px;
+  transition: transform 200ms ease-out;
+}
+
+.countriesList:hover {
+  transform: scale(1.1);
+  color: blue;
 }
