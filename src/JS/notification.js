@@ -8,9 +8,9 @@ defaults.icons = 'material';
 
 function errorsNotifications(text) {
   error({
+    text: text,
     title: 'Oh No!',
     type: 'error',
-    //   text: 'Too manu matches found! Please enter more specific query!',
     width: '400px',
     minHeight: '10px',
     dir: 'left',
@@ -21,7 +21,6 @@ function errorsNotifications(text) {
     closerHover: true,
     closer: true,
     animation: 'none',
-    text: text,
   });
 }
 
