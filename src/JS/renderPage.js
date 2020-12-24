@@ -4,13 +4,22 @@ import countryInfo from '../templates/countriesDescription.hbs';
 import refs from './refs';
 import cleaner from './cleanInput';
 
+const errorMessage = 'Nothing has been found. Try again!';
+const overLimitMessage =
+  'Too manu matches found! Please enter more specific query!';
+
 function checkFetchResponse(result) {
+  if (result.message == 'Error') {
+    handelErrorAndClean(errorMessage);
+    return;
+  }
   if (result.length > 10) {
-    cleaner.cleanSearchCountries();
+    handelErrorAndClean(overLimitMessage);
+    return;
+  }
+  if (result.length === 1) {
     cleaner.cleanSearchCountry();
-    errorsNotifications(
-      'Too manu matches found! Please enter more specific query!',
-    );
+    renderCountryPage(result);
     return;
   }
   if (result.length > 1) {
@@ -18,9 +27,18 @@ function checkFetchResponse(result) {
     renderCountriesPage(result);
     return;
   }
+}
+
+function onDoubleCheckFetchResponse(result) {
   if (result.length === 1) {
     cleaner.cleanSearchCountry();
     renderCountryPage(result);
+    return;
+  }
+  if (result.length > 1) {
+    let firstCountry = result.slice(0, 1);
+    cleaner.cleanSearchCountry();
+    renderCountryPage(firstCountry);
     return;
   }
 }
@@ -37,4 +55,10 @@ function renderCountriesPage(countries) {
   cleaner.cleanSearchCountry();
 }
 
-export default checkFetchResponse;
+function handelErrorAndClean(message) {
+  errorsNotifications(message);
+  cleaner.cleanSearchCountry();
+  cleaner.cleanSearchCountries();
+}
+
+export default { checkFetchResponse, onDoubleCheckFetchResponse };

@@ -1,20 +1,15 @@
-import errorsNotifications from './notification.js';
-import cleaner from './cleanInput';
+const fetchQuery = async searchQuery => {
+  try {
+    const url = `https://restcountries.eu/rest/v2/name/${searchQuery}`;
 
-function fetchQuery(searchQuery) {
-  const url = `https://restcountries.eu/rest/v2/name/${searchQuery}`;
+    const result = await fetch(url);
+    if (!result.ok) throw new Error('Error');
 
-  return fetch(url)
-    .then(res => {
-      if (res.ok) return res.json();
-      throw new Error('Error feching data');
-    })
-    .catch(error => {
-      errorsNotifications('Nothing has been found. Try again!');
-      cleaner.cleanSearchCountry();
-      cleaner.cleanSearchCountries();
-      return error;
-    });
-}
+    const data = await result.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
 
 export default fetchQuery;

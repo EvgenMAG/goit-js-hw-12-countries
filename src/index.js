@@ -1,6 +1,6 @@
 import './styles.css';
 import fetchQuery from './JS/fetchCountries.js';
-import checkFetchResponse from './JS/renderPage.js';
+import checkAndRender from './JS/renderPage.js';
 import debounce from 'lodash.debounce';
 import refs from './JS/refs';
 
@@ -12,15 +12,14 @@ refs.listCountries.addEventListener('click', openCountryFromList);
 
 function findCountry(e) {
   const inputValue = e.target.value;
-  if (!inputValue) {
-    return;
-  }
+
   if (inputValue == '') {
-    cleaner.onCleanInput(e);
+    cleaner.cleanSearchCountry();
+    cleaner.cleanSearchCountries();
     return;
   }
 
-  fetchQuery(inputValue).then(checkFetchResponse);
+  fetchQuery(inputValue).then(checkAndRender.checkFetchResponse);
 }
 
 function handelCleaner(e) {
@@ -31,6 +30,7 @@ function handelCleaner(e) {
 
 function openCountryFromList(e) {
   const chosenCountry = e.target.textContent;
+  console.log(chosenCountry);
   refs.input.value = chosenCountry;
-  fetchQuery(chosenCountry).then(checkFetchResponse);
+  fetchQuery(chosenCountry).then(checkAndRender.onDoubleCheckFetchResponse);
 }
